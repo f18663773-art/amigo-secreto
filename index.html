@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap">
 <style>
-/* Layout: uma coluna estreita como uma carta; três passos em sequência; o envelope lacrado é o único objeto com peso. */
+/* Layout: uma coluna estreita como uma carta; a sala é uma lista de rostos; o envelope lacrado é o único objeto com peso. */
 :root{
   --bg:#F2F0F8; --paper:#FFFFFF; --ink:#1D1838; --muted:#625C80; --line:#DCD7EC;
   --seal:#D63B33; --seal-dark:#9E2420; --pine:#1F6E5A; --pine-soft:#DDEFE8; --warn:#9A5B00; --warn-soft:#FBEBD0;
@@ -33,7 +33,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font
   padding-top:calc(32px + env(safe-area-inset-top,0px));padding-bottom:calc(48px + env(safe-area-inset-bottom,0px))}
 [hidden]{display:none!important}
 img{max-width:100%}
-main{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:24px}
+main{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
 h1,h2{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.1}
 h1{font-size:clamp(2rem,7vw,2.6rem);font-weight:800;letter-spacing:-.02em}
 h2{font-size:1.25rem;font-weight:800}
@@ -42,16 +42,8 @@ p{margin:0}
 .lede{color:var(--muted);max-width:60ch}
 header{display:flex;flex-direction:column;gap:10px}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:16px}
-.stack{display:flex;flex-direction:column;gap:16px}
-nav.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:6px}
-nav.steps button{border:0;background:transparent;padding:10px 6px;border-radius:9px;display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--muted);font-size:.85rem;line-height:1.2}
-nav.steps button .n{font-family:var(--mono);font-size:.75rem}
-nav.steps button[aria-selected="true"]{background:var(--bg);color:var(--ink)}
-nav.steps button[aria-selected="true"] .n{color:var(--seal)}
-label{font-weight:700;font-size:.9rem;display:block;margin-bottom:6px}
-.field{display:flex;flex-direction:column}
-textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;width:100%;resize:vertical;min-height:120px;font-family:var(--mono);font-size:13px;line-height:1.45;word-break:break-all}
-textarea:focus-visible,button:focus-visible{outline:3px solid color-mix(in srgb,var(--seal) 55%,transparent);outline-offset:2px}
+.stack{display:flex;flex-direction:column;gap:14px}
+button:focus-visible{outline:3px solid color-mix(in srgb,var(--seal) 55%,transparent);outline-offset:2px}
 button{font:inherit;font-weight:700;border-radius:10px;padding:12px 18px;cursor:pointer;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);transition:transform .12s ease,background .15s ease}
 button:active:not(:disabled){transform:scale(.97)}
 button:disabled{opacity:.45;cursor:not-allowed}
@@ -61,26 +53,33 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .discord:hover:not(:disabled){background:var(--blurple-dark);border-color:var(--blurple-dark)}
 .discord svg{width:22px;height:22px;fill:currentColor}
 .ghost{background:transparent}
+.small{padding:8px 12px;font-size:.85rem}
 .hint{font-size:.85rem;color:var(--muted)}
 .notice{border-radius:10px;padding:12px 14px;font-size:.9rem;background:var(--warn-soft);color:var(--warn)}
 .notice.ok{background:var(--pine-soft);color:var(--pine)}
-.token{font-family:var(--mono);font-size:13px;line-height:1.45;word-break:break-all;background:var(--bg);border:1.5px dashed var(--line);border-radius:10px;padding:12px 14px;user-select:all;-webkit-user-select:all;max-height:180px;overflow:auto}
-.chip{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.link{font-family:var(--mono);font-size:12.5px;line-height:1.45;word-break:break-all;background:var(--bg);border:1.5px dashed var(--line);border-radius:10px;padding:12px 14px;user-select:all;-webkit-user-select:all}
+.chip{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 10px;white-space:nowrap}
 .chip.go{background:var(--pine-soft);color:var(--pine)}
-.chip.bad{background:var(--warn-soft);color:var(--warn)}
+.chip.got{background:var(--pine);color:var(--paper)}
 .count{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.9rem}
 ul.people{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
-ul.people li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+ul.people li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-top:1px solid var(--line)}
 ul.people li:first-child{border-top:0}
 .person{display:flex;align-items:center;gap:10px;min-width:0}
 .avatar{width:36px;height:36px;border-radius:50%;flex:none;background:var(--line);object-fit:cover}
 .who{min-width:0;overflow-wrap:anywhere;font-weight:500}
+.you{font-size:.75rem;color:var(--muted);margin-left:6px;font-weight:400}
+.empty{color:var(--muted);font-size:.9rem;padding:6px 0}
 .actions{display:flex;gap:8px;flex-wrap:wrap}
-.actions .primary{flex:1 1 200px}
-.me{display:flex;align-items:center;gap:12px}
-.me .avatar{width:52px;height:52px}
-.me b{font-family:var(--display);font-size:1.3rem;display:block;line-height:1.1;overflow-wrap:anywhere}
-.row-between{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.actions .primary,.actions .discord{flex:1 1 200px}
+.me{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.me .person .avatar{width:44px;height:44px}
+.me b{font-family:var(--display);font-size:1.15rem;display:block;line-height:1.1;overflow-wrap:anywhere}
+.room-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.code-big{font-family:var(--mono);font-weight:700;font-size:1.6rem;letter-spacing:.18em}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:.8rem;color:var(--muted)}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.live.on::before{background:var(--pine)}
 /* Envelope */
 .envelope{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;perspective:900px}
 .flap{position:absolute;inset:0 0 auto 0;height:52%;background:var(--flap);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .6s cubic-bezier(.3,.7,.2,1);z-index:2}
@@ -105,68 +104,69 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
   <header>
     <span class="eyebrow">Sorteio às cegas</span>
     <h1>Amigo Secreto Lacrado</h1>
-    <p class="lede">Entre com o Discord, mande seu código no grupo e espere o sorteio. Cada nome sai trancado com a chave de quem vai tirar. Nem quem sorteia sabe quem tirou quem.</p>
+    <p class="lede">Entre com o Discord e abra o link da sala. Quando o sorteio acontecer, seu envelope chega sozinho. Cada nome vai trancado com a chave de quem tirou: nem quem sorteia sabe quem tirou quem.</p>
   </header>
 
   <p id="aviso-config" class="notice" hidden>Falta configurar o Discord neste site: coloque o Client ID do seu app no começo do script (DISCORD_CLIENT_ID).</p>
 
-  <nav class="steps" role="tablist" aria-label="Passos">
-    <button role="tab" id="tab-1" aria-controls="passo-1" aria-selected="true"><span class="n">1</span>Meu código</button>
-    <button role="tab" id="tab-2" aria-controls="passo-2" aria-selected="false"><span class="n">2</span>Sortear</button>
-    <button role="tab" id="tab-3" aria-controls="passo-3" aria-selected="false"><span class="n">3</span>Quem eu tirei</button>
-  </nav>
-
-  <!-- Passo 1 -->
-  <section id="passo-1" role="tabpanel" aria-labelledby="tab-1" class="card">
-    <h2>Todo mundo: entre e pegue seu código</h2>
-    <div id="sem-login" class="stack">
-      <p class="hint">Use o navegador do celular ou do PC (Chrome, Safari, Edge), não o navegador de dentro do Discord ou do WhatsApp. No passo 3 você precisa voltar neste mesmo navegador.</p>
-      <button id="entrar" class="discord" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.3a18.4 18.4 0 0 0-5.6 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.3 13.6.1 18.1a19.9 19.9 0 0 0 6 3l1.3-2.1a12.9 12.9 0 0 1-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.8 19.8 0 0 0 6-3c.5-5.2-.8-9.7-3.6-13.7ZM8 15.4c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.6 8 10.6s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg>
-        Entrar com Discord
-      </button>
-      <p class="hint">O site só lê seu nome e sua foto. Nada é publicado na sua conta.</p>
-    </div>
+  <!-- Login -->
+  <section id="tela-login" class="card" hidden>
+    <h2 id="login-titulo">Entre com o Discord</h2>
+    <p class="hint">Use o navegador do celular ou do PC (Chrome, Safari, Edge), não o de dentro do Discord ou do WhatsApp. Volte neste mesmo navegador para ver seu envelope.</p>
+    <button id="entrar" class="discord" type="button">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3l-.6 1.3a18.4 18.4 0 0 0-5.6 0L8.6 3a19.7 19.7 0 0 0-4.9 1.5C.6 9.1-.3 13.6.1 18.1a19.9 19.9 0 0 0 6 3l1.3-2.1a12.9 12.9 0 0 1-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1l1.3 2.1a19.8 19.8 0 0 0 6-3c.5-5.2-.8-9.7-3.6-13.7ZM8 15.4c-1.2 0-2.2-1.1-2.2-2.4S6.8 10.6 8 10.6s2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Zm8 0c-1.2 0-2.2-1.1-2.2-2.4s1-2.4 2.2-2.4 2.2 1.1 2.2 2.4-1 2.4-2.2 2.4Z"/></svg>
+      Entrar com Discord
+    </button>
+    <p class="hint">O site só lê seu nome e sua foto. Nada é publicado na sua conta.</p>
     <p id="erro-login" class="notice" hidden></p>
-    <div id="com-login" class="stack" hidden>
-      <div class="me"><img class="avatar" id="meu-avatar" alt=""><div><span class="hint">Código de</span><b id="meu-nome"></b></div></div>
-      <div class="token" id="token-meu"></div>
-      <div class="actions">
-        <button id="copiar-meu" class="primary">Copiar código</button>
-        <button id="trocar" class="ghost">Trocar conta</button>
+  </section>
+
+  <!-- Barra do usuário -->
+  <div id="barra-eu" class="card me" hidden style="padding:12px 16px">
+    <span class="person"><img class="avatar" id="eu-avatar" alt=""><span><span class="hint">Você está como</span><b id="eu-nome"></b></span></span>
+    <button id="trocar" class="ghost small">Trocar conta</button>
+  </div>
+
+  <!-- Início -->
+  <section id="tela-inicio" class="card" hidden>
+    <div id="pode-criar" class="stack" hidden>
+      <h2>Criar uma sala</h2>
+      <p class="hint">Você cria a sala, manda o link no grupo e aperta Sortear quando todo mundo tiver entrado.</p>
+      <button id="criar" class="primary">Criar sala</button>
+      <div id="ultima-sala" class="stack" hidden>
+        <span class="eyebrow" style="color:var(--muted)">Sua última sala</span>
+        <div class="link" id="ultima-link"></div>
+        <div class="actions"><button id="ultima-abrir" class="primary">Abrir sala</button><button id="ultima-copiar" class="ghost">Copiar link</button></div>
       </div>
-      <p class="notice ok">Mande esse código no grupo. Ele não revela nada: serve só para trancar o seu envelope.</p>
+    </div>
+    <div id="nao-pode-criar" class="stack" hidden>
+      <h2>Esperando o link da sala</h2>
+      <p class="hint">Só o Lipe e o kbum criam salas. Peça o link no grupo e abra neste navegador.</p>
     </div>
   </section>
 
-  <!-- Passo 2 -->
-  <section id="passo-2" role="tabpanel" aria-labelledby="tab-2" class="card" hidden>
-    <h2>Uma pessoa: faça o sorteio</h2>
-    <div class="field">
-      <label for="codigos">Cole os códigos de todo mundo</label>
-      <textarea id="codigos" rows="5" spellcheck="false" placeholder="Pode colar as mensagens inteiras do grupo. A página acha os códigos sozinha."></textarea>
+  <!-- Sala -->
+  <section id="tela-sala" class="stack" hidden>
+    <div class="card">
+      <div class="room-head">
+        <div><span class="eyebrow">Sala</span><div class="code-big" id="sala-codigo">----</div></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+          <span class="live" id="conexao">Conectando…</span>
+          <span class="count" id="contagem">0 pessoas</span>
+        </div>
+      </div>
+      <ul class="people" id="lista" aria-live="polite"></ul>
+      <p id="aviso-sala" class="notice" hidden></p>
+      <div id="org" class="stack" hidden>
+        <div class="actions">
+          <button id="sortear" class="primary" disabled>Sortear</button>
+          <button id="copiar-link" class="ghost">Copiar link da sala</button>
+        </div>
+        <p class="hint" id="dica-org">Você criou esta sala. Quando todo mundo aparecer na lista, aperte Sortear.</p>
+      </div>
+      <p class="hint" id="dica-participante" hidden>Espere aqui. Quando quem criou a sala sortear, seu envelope aparece embaixo.</p>
     </div>
-    <div>
-      <div class="row-between"><span class="eyebrow" style="color:var(--muted)">Participantes</span><span class="count" id="contagem">0 pessoas</span></div>
-      <ul class="people" id="lista"></ul>
-    </div>
-    <p id="aviso-sorteio" class="notice" hidden></p>
-    <button id="sortear" class="primary" disabled>Sortear</button>
-    <div id="saida" class="stack" hidden>
-      <div class="token" id="token-resultado"></div>
-      <div class="actions"><button id="copiar-resultado" class="primary">Copiar resultado</button></div>
-      <p class="notice ok">Mande esse resultado no grupo. Está tudo trancado: nem você sabe quem tirou quem. Cada um cola no passo 3.</p>
-    </div>
-  </section>
 
-  <!-- Passo 3 -->
-  <section id="passo-3" role="tabpanel" aria-labelledby="tab-3" class="card" hidden>
-    <h2>Todo mundo: abra seu envelope</h2>
-    <div class="field">
-      <label for="resultado">Cole o resultado do sorteio</label>
-      <textarea id="resultado" rows="4" spellcheck="false" placeholder="Começa com AS2R."></textarea>
-    </div>
-    <p id="aviso-abrir" class="notice" hidden></p>
     <div id="area-envelope" hidden>
       <div class="envelope" id="envelope">
         <div class="flap" aria-hidden="true"></div>
@@ -185,7 +185,7 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
   </section>
 
   <footer>
-    <span>Tudo roda no seu navegador, sem servidor. A chave do seu envelope fica guardada só neste aparelho (ECDH P-256 + AES-GCM).</span>
+    <span>Tudo é cifrado no seu navegador (ECDH P-256 + AES-GCM, resultado assinado por quem criou a sala). A sala passa pelo ntfy.sh, que só vê códigos trancados e guarda tudo por 12 horas.</span>
   </footer>
 </main>
 
@@ -195,9 +195,13 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
   // Client ID do app em https://discord.com/developers/applications (aba OAuth2). Não é segredo.
   const DISCORD_CLIENT_ID = "1570902337764065481";
   // Tem que ser IGUAL ao "Redirect" cadastrado no app do Discord.
-  const REDIRECT_URI = location.origin + location.pathname.replace(/index\.html$/, "");
+  const REDIRECT_URI = (typeof location !== "undefined") ? location.origin + location.pathname.replace(/index\.html$/, "") : "";
+  // Quem pode criar sala (IDs do Discord).
+  const CRIADORES = ["772844333585268776", "719345877021491266"]; // Lipe, kbum
   // Pares que não podem se tirar (IDs do Discord).
-  const BLOQUEIOS = [["1067520584663191663", "1086820528389640333"]];
+  const BLOQUEIOS = [["1067520584663191663", "1086820528389640333"]]; // judedog, star
+  // Servidor de mensagens da sala (público, grátis, sem cadastro).
+  const NTFY = "https://ntfy.sh/";
   // ==========================
 
   const $ = id => document.getElementById(id);
@@ -206,10 +210,12 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
 
   // ---------- util ----------
   const b64 = buf => { const u = new Uint8Array(buf); let s = ""; for (const c of u) s += String.fromCharCode(c); return btoa(s).replace(/=+$/, ""); };
-  const unb64 = s => { while (s.length % 4) s += "="; return Uint8Array.from(atob(s), c => c.charCodeAt(0)); };
+  const unb64 = s => { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; return Uint8Array.from(atob(s), c => c.charCodeAt(0)); };
+  const b64url = buf => b64(buf).replace(/\+/g, "-").replace(/\//g, "_");
   const store = {
     get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch { return false; } },
+    del(k) { try { localStorage.removeItem(k); } catch {} },
   };
   function rnd(n) { const a = new Uint32Array(1), lim = Math.floor(0x100000000 / n) * n; let x; do { crypto.getRandomValues(a); x = a[0]; } while (x >= lim); return x % n; }
   const hex = n => Array.from(crypto.getRandomValues(new Uint8Array(n)), b => b.toString(16).padStart(2, "0")).join("");
@@ -270,24 +276,26 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
 
   // ---------- cripto ----------
   const CURVA = { name: "ECDH", namedCurve: "P-256" };
+  const ASSIN = { name: "ECDSA", namedCurve: "P-256" };
+  const HASH = { name: "ECDSA", hash: "SHA-256" };
   const IV0 = new Uint8Array(12); // cada chave derivada é usada uma vez só
   const importarPub = bytes => crypto.subtle.importKey("raw", bytes, CURVA, false, []);
   const derivar = (priv, pub, uso) => crypto.subtle.deriveKey({ name: "ECDH", public: pub }, priv, { name: "AES-GCM", length: 256 }, false, [uso]);
 
-  // Código pessoal: AS2.<pessoa + chave pública>
-  // Resultado:      AS2R.<id>.<chave do sorteio>.<lista de pessoas>.<envelopes de 17 bytes>
+  // Entrada na sala: AS2.<pessoa + chave pública>
+  // Resultado:       AS2R.<id>.<chave do sorteio>.<lista de pessoas>.<envelopes de 17 bytes>.<assinatura>
   const B = "[A-Za-z0-9+/]";
-  const RE_COD = new RegExp("AS2\\.(" + B + "{100,200})(?!" + B + ")", "g");
-  const RE_RES = new RegExp("AS2R\\.([0-9a-f]{12})\\.(" + B + "{87})\\.(" + B + "+)\\.(" + B + "+)");
+  const RE_COD = new RegExp("^AS2\\.(" + B + "{100,200})$");
+  const RE_RES = new RegExp("^(AS2R\\.[0-9a-f]{12}\\." + B + "{87}\\." + B + "+\\." + B + "+)\\.(" + B + "{86})$");
 
   function montarCodigo(p, pubRaw) { const pb = pessoaBytes(p); const u = new Uint8Array(pb.length + 65); u.set(pb); u.set(new Uint8Array(pubRaw), pb.length); return "AS2." + b64(u); }
-  function lerCodigo(s) { const u = unb64(s); const [p, o] = lerPessoa(u, 0); if (u.length - o !== 65 || u[o] !== 4) throw new Error("chave"); return { ...p, pub: u.slice(o) }; }
+  function lerCodigo(s) { const m = s.match(RE_COD); if (!m) throw new Error("formato"); const u = unb64(m[1]); const [p, o] = lerPessoa(u, 0); if (u.length - o !== 65 || u[o] !== 4) throw new Error("chave"); return { ...p, pub: u.slice(o), pubS: b64(u.slice(o)) }; }
 
-  async function sortear(ps) {
+  async function sortear(ps, chaveAssinatura) {
     const ids = ps.map(p => p.id);
     let perm = embaralhar(ids);
     if (!perm) throw new Error("sem sorteio");
-    const ordem = misturar(ps.map((_, i) => i));        // posição de cada pessoa na lista pública
+    const ordem = misturar(ps.map((_, i) => i));
     const pos = []; ordem.forEach((pi, k) => { pos[pi] = k; });
     const lista = ordem.map(pi => pessoaBytes(ps[pi]));
     const listaU = new Uint8Array(lista.reduce((a, x) => a + x.length, 0)); let o = 0; for (const x of lista) { listaU.set(x, o); o += x.length; }
@@ -301,167 +309,262 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
     perm = null; // a lista em claro some aqui
     misturar(envs);
     const envU = new Uint8Array(envs.length * 17); envs.forEach((e, k) => envU.set(e, k * 17));
-    return "AS2R." + id + "." + ephPub + "." + b64(listaU) + "." + b64(envU);
+    const corpo = "AS2R." + id + "." + ephPub + "." + b64(listaU) + "." + b64(envU);
+    const sig = await crypto.subtle.sign(HASH, chaveAssinatura, enc.encode(corpo));
+    return corpo + "." + b64(sig);
   }
-
-  async function abrir(token, chaves) {
-    const m = token.replace(/\s+/g, "").match(RE_RES);
-    if (!m) return { erro: "formato" };
-    const [, id, ephS, listaS, envS] = m;
+  async function verificar(token, pubAssinatura) {
+    const m = token.match(RE_RES); if (!m) return false;
+    try { return await crypto.subtle.verify(HASH, pubAssinatura, unb64(m[2]), enc.encode(m[1])); } catch { return false; }
+  }
+  async function abrir(token, jwk) {
+    const m = token.match(RE_RES); if (!m) return { erro: "formato" };
+    const [, id, ephS, listaS, envS] = m[1].split(".");
     const listaU = unb64(listaS), envU = unb64(envS);
     const pessoas = []; let o = 0;
     while (o < listaU.length) { const [p, n] = lerPessoa(listaU, o); pessoas.push(p); o = n; }
     if (envU.length !== pessoas.length * 17) return { erro: "formato" };
-    const ephPub = await importarPub(unb64(ephS));
-    for (const eu of chaves) {
-      const priv = await crypto.subtle.importKey("jwk", eu.jwk, CURVA, false, ["deriveKey"]);
-      const chave = await derivar(priv, ephPub, "decrypt");
-      for (let k = 0; k < pessoas.length; k++) {
-        try {
-          const claro = new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: IV0, additionalData: enc.encode(id) }, chave, envU.slice(k * 17, k * 17 + 17)));
-          const alvo = pessoas[claro[0]]; if (!alvo) continue;
-          return { eu, alvo };
-        } catch { /* não é o seu envelope */ }
-      }
+    const priv = await crypto.subtle.importKey("jwk", jwk, CURVA, false, ["deriveKey"]);
+    const chave = await derivar(priv, await importarPub(unb64(ephS)), "decrypt");
+    for (let k = 0; k < pessoas.length; k++) {
+      try {
+        const claro = new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: IV0, additionalData: enc.encode(id) }, chave, envU.slice(k * 17, k * 17 + 17)));
+        const alvo = pessoas[claro[0]]; if (alvo) return { alvo };
+      } catch { /* não é o seu envelope */ }
     }
     return { erro: "nao-esta" };
   }
 
   // Exposto para testes fora do navegador.
-  if (typeof window === "undefined" || !window.document) { globalThis.__amigo = { possivel, embaralhar, pessoaBytes, lerPessoa, montarCodigo, lerCodigo, sortear, abrir, RE_COD, CURVA, b64 }; return; }
+  if (typeof document === "undefined") { globalThis.__amigo = { possivel, embaralhar, montarCodigo, lerCodigo, sortear, verificar, abrir, CURVA, ASSIN }; return; }
 
-  // ---------- abas ----------
-  const tabs = [1, 2, 3].map(i => $("tab-" + i));
-  function irPara(n) {
-    tabs.forEach((t, i) => { t.setAttribute("aria-selected", String(i + 1 === n)); $("passo-" + (i + 1)).hidden = i + 1 !== n; });
-    store.set("amigo-secreto:aba", n);
-  }
-  tabs.forEach((t, i) => t.addEventListener("click", () => irPara(i + 1)));
-
+  // ---------- telas ----------
+  const telas = ["tela-login", "tela-inicio", "tela-sala"];
+  function mostrar(qual) { telas.forEach(t => { $(t).hidden = t !== qual; }); $("barra-eu").hidden = qual === "tela-login" || !perfil(); }
+  function foto(img, p) { img.src = avatarUrl(p); img.onerror = () => { img.onerror = null; img.src = avatarUrl({ id: p.id }); }; }
   async function copiar(texto, el, btn) {
     const orig = btn.textContent;
     try { await navigator.clipboard.writeText(texto); btn.textContent = "Copiado"; }
-    catch { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = "Selecionado: copie"; }
+    catch { if (el) { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } btn.textContent = "Selecionado: copie"; }
     setTimeout(() => { btn.textContent = orig; }, 1800);
   }
-  function foto(img, p) { img.src = avatarUrl(p); img.onerror = () => { img.onerror = null; img.src = avatarUrl({ id: p.id }); }; }
 
-  // ---------- passo 1: login ----------
-  const chaves = () => store.get("amigo-secreto:chaves") || [];
-  function mostrarMeu() {
-    const atual = store.get("amigo-secreto:atual");
-    $("sem-login").hidden = !!atual; $("com-login").hidden = !atual;
-    if (atual) { foto($("meu-avatar"), atual); $("meu-nome").textContent = atual.nome; $("token-meu").textContent = atual.codigo; }
-  }
+  // ---------- login ----------
+  const perfil = () => store.get("amigo-secreto:perfil");
   function erroLogin(m) { $("erro-login").textContent = m; $("erro-login").hidden = !m; }
-
   $("entrar").addEventListener("click", () => {
     if (!DISCORD_CLIENT_ID) return erroLogin("O Discord ainda não foi configurado neste site.");
     const state = hex(16);
-    try { sessionStorage.setItem("amigo-secreto:state", state); } catch {}
+    try { sessionStorage.setItem("amigo-secreto:state", state); sessionStorage.setItem("amigo-secreto:voltar", location.hash); } catch {}
     const q = new URLSearchParams({ client_id: DISCORD_CLIENT_ID, response_type: "token", scope: "identify", redirect_uri: REDIRECT_URI, state });
     location.href = "https://discord.com/oauth2/authorize?" + q;
   });
-  $("trocar").addEventListener("click", () => { try { localStorage.removeItem("amigo-secreto:atual"); } catch {} mostrarMeu(); });
-  $("copiar-meu").addEventListener("click", e => copiar($("token-meu").textContent, $("token-meu"), e.currentTarget));
+  $("trocar").addEventListener("click", () => { store.del("amigo-secreto:perfil"); sairDaSala(); rota(); });
 
   async function voltarDoDiscord() {
-    if (!location.hash.includes("access_token") && !location.hash.includes("error")) return;
+    if (!/access_token=|error=/.test(location.hash)) return false;
     const h = new URLSearchParams(location.hash.slice(1));
-    history.replaceState(null, "", location.pathname + location.search);
-    let esperado = null; try { esperado = sessionStorage.getItem("amigo-secreto:state"); sessionStorage.removeItem("amigo-secreto:state"); } catch {}
-    if (h.get("error")) return erroLogin("Login cancelado no Discord. Tente de novo.");
-    if (!esperado || h.get("state") !== esperado) return erroLogin("O login não bateu com este navegador. Tente entrar de novo.");
-    irPara(1);
+    let esperado = null, voltar = "";
+    try { esperado = sessionStorage.getItem("amigo-secreto:state"); voltar = sessionStorage.getItem("amigo-secreto:voltar") || ""; sessionStorage.removeItem("amigo-secreto:state"); } catch {}
+    history.replaceState(null, "", location.pathname + location.search + voltar);
+    if (h.get("error")) { erroLogin("Login cancelado no Discord. Tente de novo."); return true; }
+    if (!esperado || h.get("state") !== esperado) { erroLogin("O login não bateu com este navegador. Tente entrar de novo."); return true; }
     try {
       const r = await fetch("https://discord.com/api/v10/users/@me", { headers: { Authorization: (h.get("token_type") || "Bearer") + " " + h.get("access_token") } });
       if (!r.ok) throw new Error(r.status);
       const u = await r.json();
-      const p = { id: String(u.id), avatar: u.avatar || null, nome: cortarNome(u.global_name || u.username) };
-      const par = await crypto.subtle.generateKey(CURVA, true, ["deriveKey"]);
-      const codigo = montarCodigo(p, await crypto.subtle.exportKey("raw", par.publicKey));
-      const jwk = await crypto.subtle.exportKey("jwk", par.privateKey);
-      const lista = chaves(); lista.push({ id: p.id, nome: p.nome, jwk, em: Date.now() });
-      if (!store.set("amigo-secreto:chaves", lista)) return erroLogin("Este navegador não deixa guardar a chave (aba anônima?). Abra numa aba normal.");
-      store.set("amigo-secreto:atual", { ...p, codigo });
-      erroLogin(""); mostrarMeu();
+      if (!store.set("amigo-secreto:perfil", { id: String(u.id), avatar: u.avatar || null, nome: cortarNome(u.global_name || u.username) }))
+        erroLogin("Este navegador não deixa guardar dados (aba anônima?). Abra numa aba normal.");
     } catch { erroLogin("Não consegui ler seu perfil do Discord. Tente entrar de novo."); }
+    return true;
   }
 
-  // ---------- passo 2 ----------
-  let participantes = [];
-  function lerCodigos(texto) {
-    const porId = new Map();
-    for (const m of texto.matchAll(RE_COD)) { try { const p = lerCodigo(m[1]); porId.set(p.id, p); } catch {} }
-    return [...porId.values()]; // se alguém mandou dois códigos, vale o último
+  // ---------- início / criar sala ----------
+  const minhasSalas = () => store.get("amigo-secreto:salas") || {};
+  const linkDaSala = s => location.origin + location.pathname + "#sala=" + s.topico + "." + s.pub;
+  function renderInicio() {
+    const p = perfil(), pode = !!p && CRIADORES.includes(p.id);
+    $("pode-criar").hidden = !pode; $("nao-pode-criar").hidden = pode;
+    const ult = store.get("amigo-secreto:ultima-sala");
+    $("ultima-sala").hidden = !(pode && ult);
+    if (pode && ult) $("ultima-link").textContent = linkDaSala(ult);
   }
-  function renderParticipantes() {
-    participantes = lerCodigos($("codigos").value);
+  $("criar").addEventListener("click", async () => {
+    const p = perfil(); if (!p || !CRIADORES.includes(p.id)) return;
+    const par = await crypto.subtle.generateKey(ASSIN, true, ["sign", "verify"]);
+    const sala = { topico: "amigo-lacrado-" + hex(10), pub: b64url(await crypto.subtle.exportKey("raw", par.publicKey)) };
+    const salas = minhasSalas(); salas[sala.topico] = { jwk: await crypto.subtle.exportKey("jwk", par.privateKey), em: Date.now() };
+    store.set("amigo-secreto:salas", salas); store.set("amigo-secreto:ultima-sala", sala);
+    location.hash = "sala=" + sala.topico + "." + sala.pub;
+  });
+  $("ultima-abrir").addEventListener("click", () => { const s = store.get("amigo-secreto:ultima-sala"); if (s) location.hash = "sala=" + s.topico + "." + s.pub; });
+  $("ultima-copiar").addEventListener("click", e => copiar($("ultima-link").textContent, $("ultima-link"), e.currentTarget));
+
+  // ---------- sala ----------
+  let S = null; // estado da sala aberta
+  function sairDaSala() { if (S) { S.fechado = true; if (S.es) S.es.close(); clearTimeout(S.timer); clearInterval(S.poll); } S = null; }
+
+  async function entrarNaSala(topico, pubS) {
+    sairDaSala();
+    let orgPub; try { orgPub = await crypto.subtle.importKey("raw", unb64(pubS), ASSIN, false, ["verify"]); }
+    catch { $("aviso-sala").textContent = "Esse link de sala está quebrado. Peça o link de novo."; $("aviso-sala").hidden = false; mostrar("tela-sala"); return; }
+    const eu = perfil();
+    const org = minhasSalas()[topico] || null;
+    const entradas = store.get("amigo-secreto:entradas") || {};
+    S = { topico, pubS, orgPub, org, eu, vistos: new Set(), pessoas: new Map(), resultado: null, alvo: null, minha: entradas[topico] || null, aberto: false, conectado: false, enviando: false };
+    $("sala-codigo").textContent = topico.slice(-4).toUpperCase();
+    $("org").hidden = !org; $("dica-participante").hidden = !!org;
+    fecharEnvelope(); $("area-envelope").hidden = true;
+    mostrar("tela-sala"); renderSala();
+    conectar();
+  }
+
+  function conectar() {
+    const s = S;
+    try {
+      s.es = new EventSource(NTFY + s.topico + "/sse?since=all");
+      s.es.onopen = () => { s.conectado = true; renderSala(); clearTimeout(s.timer); s.timer = setTimeout(() => garantirEntrada(), 2500); };
+      s.es.onerror = () => { s.conectado = false; renderSala(); };
+      s.es.onmessage = e => { try { receber(JSON.parse(e.data)); } catch {} };
+    } catch { s.conectado = false; }
+    // Reserva: se o tempo real cair, busca de vez em quando.
+    s.poll = setInterval(async () => {
+      if (s.fechado || s.conectado) return;
+      try {
+        const r = await fetch(NTFY + s.topico + "/json?poll=1&since=all");
+        const t = await r.text();
+        t.split("\n").filter(Boolean).forEach(l => { try { receber(JSON.parse(l)); } catch {} });
+        garantirEntrada();
+      } catch {}
+    }, 15000);
+  }
+
+  async function receber(msg) {
+    const s = S; if (!s || msg.event !== "message" || typeof msg.message !== "string" || s.vistos.has(msg.id)) return;
+    s.vistos.add(msg.id);
+    const t = msg.message.trim();
+    if (t.startsWith("AS2.")) {
+      try { const p = lerCodigo(t); if (!s.pessoas.has(p.id)) s.pessoas.set(p.id, { ...p, em: msg.time }); } catch {}
+    } else if (t.startsWith("AS2R.") && !s.resultado) {
+      if (await verificar(t, s.orgPub) && !s.resultado) { s.resultado = t; abrirMeu(); }
+    }
+    renderSala();
+  }
+
+  async function garantirEntrada() {
+    const s = S; if (!s || s.fechado || s.resultado || s.enviando) return;
+    const ja = s.pessoas.get(s.eu.id);
+    if (ja) return renderSala();
+    s.enviando = true;
+    try {
+      if (!s.minha) {
+        const par = await crypto.subtle.generateKey(CURVA, true, ["deriveKey"]);
+        const pubRaw = await crypto.subtle.exportKey("raw", par.publicKey);
+        s.minha = { jwk: await crypto.subtle.exportKey("jwk", par.privateKey), pubS: b64(pubRaw), codigo: montarCodigo(s.eu, pubRaw) };
+        const entradas = store.get("amigo-secreto:entradas") || {}; entradas[s.topico] = s.minha;
+        if (!store.set("amigo-secreto:entradas", entradas)) { aviso("Este navegador não deixa guardar sua chave (aba anônima?). Abra numa aba normal."); return; }
+      }
+      const r = await fetch(NTFY + s.topico, { method: "POST", body: s.minha.codigo });
+      if (!r.ok) throw new Error(r.status);
+    } catch { aviso("Não consegui entrar na sala. Confira a internet e recarregue a página."); }
+    finally { s.enviando = false; }
+  }
+
+  async function abrirMeu() {
+    const s = S; if (!s || !s.resultado || s.alvo) return;
+    if (!s.minha) { renderSala(); return; }
+    try { const r = await abrir(s.resultado, s.minha.jwk); if (r.alvo) s.alvo = r.alvo; else s.fora = true; }
+    catch { s.fora = true; }
+    renderSala();
+  }
+
+  function aviso(m) { $("aviso-sala").textContent = m; $("aviso-sala").hidden = !m; }
+
+  function renderSala() {
+    const s = S; if (!s) return;
+    $("conexao").textContent = s.conectado ? "ao vivo" : "conectando…";
+    $("conexao").classList.toggle("on", s.conectado);
+    const ps = [...s.pessoas.values()].sort((a, b) => a.em - b.em);
+    $("contagem").textContent = ps.length + (ps.length === 1 ? " pessoa" : " pessoas");
     const ul = $("lista"); ul.textContent = "";
-    for (const p of participantes) {
+    if (!ps.length) { const li = document.createElement("li"); li.className = "empty"; li.textContent = "Ninguém entrou ainda."; ul.append(li); }
+    for (const p of ps) {
       const li = document.createElement("li");
       const pe = document.createElement("span"); pe.className = "person";
       const img = document.createElement("img"); img.className = "avatar"; img.alt = ""; foto(img, p);
       const w = document.createElement("span"); w.className = "who"; w.textContent = p.nome;
+      if (p.id === s.eu.id) { const y = document.createElement("span"); y.className = "you"; y.textContent = "você"; w.append(y); }
       pe.append(img, w);
-      const c = document.createElement("span"); c.className = "chip go"; c.textContent = "ok";
+      const c = document.createElement("span"); c.className = "chip " + (s.resultado ? "got" : "go"); c.textContent = s.resultado ? "sorteado" : "entrou";
       li.append(pe, c); ul.append(li);
     }
-    $("contagem").textContent = participantes.length + (participantes.length === 1 ? " pessoa" : " pessoas");
-    let msg = "";
-    if ($("codigos").value.trim() && !participantes.length) msg = "Não achei nenhum código aqui. Os códigos começam com AS2.";
-    else if (participantes.length && participantes.length < 3) msg = "Precisa de pelo menos 3 pessoas.";
-    else if (participantes.length >= 3 && !possivel(participantes.map(p => p.id))) msg = "Com essas pessoas não dá para sortear. Chamem mais gente.";
-    $("aviso-sorteio").textContent = msg; $("aviso-sorteio").hidden = !msg;
-    $("sortear").disabled = !!msg || participantes.length < 3;
-    $("saida").hidden = true; $("sortear").textContent = "Sortear";
-  }
-  $("codigos").addEventListener("input", renderParticipantes);
-  $("sortear").addEventListener("click", async () => {
-    const btn = $("sortear"); btn.disabled = true; btn.textContent = "Sorteando…";
-    try { $("token-resultado").textContent = await sortear(participantes.slice()); $("saida").hidden = false; }
-    catch { $("aviso-sorteio").textContent = "O sorteio falhou. Confira os códigos e tente de novo."; $("aviso-sorteio").hidden = false; }
-    finally { btn.textContent = "Sortear de novo"; btn.disabled = false; }
-  });
-  $("copiar-resultado").addEventListener("click", e => copiar($("token-resultado").textContent, $("token-resultado"), e.currentTarget));
 
-  // ---------- passo 3 ----------
-  let tentativa = 0, alvoAtual = null;
-  function fechar() {
+    const meu = s.pessoas.get(s.eu.id);
+    let msg = "";
+    if (meu && s.minha && meu.pubS !== s.minha.pubS) msg = "Já entraram nesta sala com o seu Discord por outro aparelho ou navegador. Seu envelope só abre lá.";
+    else if (meu && !s.minha) msg = "Você entrou nesta sala por outro aparelho ou navegador. Seu envelope só abre lá.";
+    else if (s.resultado && (s.fora || !meu)) msg = "O sorteio desta sala foi feito sem você.";
+    else if (!s.resultado && ps.length >= 3 && !possivel(ps.map(p => p.id))) msg = "Com essas pessoas não dá para sortear. Chamem mais gente.";
+    aviso(msg);
+
+    if (s.org) {
+      const pode = !s.resultado && ps.length >= 3 && possivel(ps.map(p => p.id));
+      const btn = $("sortear");
+      btn.disabled = !pode || s.sorteando;
+      btn.textContent = s.resultado ? "Sorteio feito" : s.armado ? "Confirmar: sortear " + ps.length + " pessoas" : "Sortear";
+      $("dica-org").textContent = s.resultado ? "Pronto. Cada um já recebeu o próprio envelope." : ps.length < 3 ? "Precisa de pelo menos 3 pessoas na sala." : "Quando todo mundo aparecer na lista, aperte Sortear. Quem entrar depois fica de fora.";
+    }
+    $("dica-participante").textContent = s.resultado ? "O sorteio foi feito." : "Espere aqui. Quando quem criou a sala sortear, seu envelope aparece embaixo.";
+    $("area-envelope").hidden = !s.alvo;
+    if (s.alvo) $("para").textContent = s.eu.nome + ", você tirou";
+  }
+
+  $("sortear").addEventListener("click", async () => {
+    const s = S; if (!s || !s.org || s.resultado) return;
+    if (!s.armado) { s.armado = true; renderSala(); setTimeout(() => { if (S === s) { s.armado = false; renderSala(); } }, 5000); return; }
+    s.armado = false; s.sorteando = true; renderSala();
+    try {
+      const chave = await crypto.subtle.importKey("jwk", s.org.jwk, ASSIN, false, ["sign"]);
+      const ps = [...s.pessoas.values()];
+      const token = await sortear(ps, chave);
+      const r = await fetch(NTFY + s.topico, { method: "POST", body: token });
+      if (!r.ok) throw new Error(r.status);
+    } catch { aviso("O sorteio não foi enviado. Confira a internet e tente de novo."); }
+    finally { s.sorteando = false; renderSala(); }
+  });
+  $("copiar-link").addEventListener("click", e => S && copiar(location.origin + location.pathname + "#sala=" + S.topico + "." + S.pubS, null, e.currentTarget));
+
+  function fecharEnvelope() {
     $("envelope").classList.remove("open"); $("reveal").setAttribute("aria-hidden", "true");
     $("alvo-nome").textContent = "•••••"; $("alvo-avatar").removeAttribute("src");
     $("abrir").textContent = "Abrir envelope";
   }
-  $("resultado").addEventListener("input", async () => {
-    const minha = ++tentativa;
-    const av = $("aviso-abrir"); av.hidden = true; $("area-envelope").hidden = true; fechar(); alvoAtual = null;
-    const txt = $("resultado").value.trim(); if (!txt) return;
-    const falha = m => { if (minha === tentativa) { av.textContent = m; av.hidden = false; } };
-    const lista = chaves().slice().reverse();
-    if (!lista.length) return falha("Este navegador não tem nenhum código seu. Abra no mesmo aparelho e navegador em que você fez o passo 1.");
-    let r; try { r = await abrir(txt, lista); } catch { r = { erro: "formato" }; }
-    if (minha !== tentativa) return;
-    if (r.erro === "formato") return falha("Isso não parece um resultado completo. Ele começa com AS2R.: copie a mensagem inteira.");
-    if (r.erro) return falha("Seu código não está nesse sorteio. Confira se está no mesmo aparelho e navegador do passo 1, e se seu código foi colado no sorteio.");
-    alvoAtual = r.alvo;
-    $("para").textContent = r.eu.nome + ", você tirou";
-    $("area-envelope").hidden = false;
-  });
   $("abrir").addEventListener("click", () => {
-    if (!alvoAtual) return;
+    if (!S || !S.alvo) return;
     const aberto = $("envelope").classList.toggle("open");
     $("reveal").setAttribute("aria-hidden", aberto ? "false" : "true");
-    if (aberto) { $("alvo-nome").textContent = alvoAtual.nome; foto($("alvo-avatar"), alvoAtual); }
+    if (aberto) { $("alvo-nome").textContent = S.alvo.nome; foto($("alvo-avatar"), S.alvo); }
     else { $("alvo-nome").textContent = "•••••"; $("alvo-avatar").removeAttribute("src"); }
     $("abrir").textContent = aberto ? "Fechar envelope" : "Abrir envelope";
   });
 
-  // ---------- boot ----------
+  // ---------- rotas ----------
+  function lerSalaDoLink() { const m = location.hash.match(/^#sala=(amigo-lacrado-[0-9a-f]{20})\.([A-Za-z0-9_-]{87})$/); return m ? { topico: m[1], pub: m[2] } : null; }
+  function rota() {
+    const p = perfil(), sala = lerSalaDoLink();
+    if (p) { foto($("eu-avatar"), p); $("eu-nome").textContent = p.nome; }
+    if (!p) {
+      sairDaSala();
+      $("login-titulo").textContent = sala ? "Entre com o Discord para participar da sala" : "Entre com o Discord";
+      mostrar("tela-login"); return;
+    }
+    if (sala) { if (!S || S.topico !== sala.topico) entrarNaSala(sala.topico, sala.pub); else mostrar("tela-sala"); return; }
+    sairDaSala(); renderInicio(); mostrar("tela-inicio");
+  }
+  window.addEventListener("hashchange", rota);
+
   $("aviso-config").hidden = !!DISCORD_CLIENT_ID;
-  mostrarMeu();
-  const aba = store.get("amigo-secreto:aba");
-  irPara([1, 2, 3].includes(aba) ? aba : 1);
-  voltarDoDiscord();
+  voltarDoDiscord().then(rota);
 })();
 </script>
 </body>
